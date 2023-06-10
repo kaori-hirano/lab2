@@ -1,7 +1,7 @@
 ---
 title: "Lab 2"
-author: "A name"
-date: "A date"
+author: "kaori hirano"
+date: "6 10 2023"
 subtitle: "Due: 11:59 PM on 6/15/2023"
 format: pdf
 ---
@@ -17,6 +17,11 @@ format: pdf
 
 
 ## Q2 
+
+```{r chunk_label}
+# Remember to label chunks, it can make debugging code much easier
+# IMPORTANT: CHUNK LABELS MUST BE UNIQUE
+```
 
 ...
 
