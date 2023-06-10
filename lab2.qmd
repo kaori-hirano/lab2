@@ -19,13 +19,21 @@ date <- mdy(c(071220, 71320, 71420, 71520, 71620,71720,71820,71920, 72020,72120,
 mask <- c(25.5, 19.5, 19.5, 20.5, 19.5, 19.5, 20.5, 20, 20.5, 21.4, 19.5, 19.5, 20.5, 19, 19.4, 17, 16.5, 16.7, 16.7, 16.5, 16.6, 16.5, 16.5)
 noMask <- c(9.9, 9.1, 9.3, 9.9, 9.9, 9.6, 9.6, 9, 8.5, 8.6, 8.5, 9.8, 9.9, 10, 9.8, 9.8, 9.8, 10, 9.6, 9, 9.1, 9, 9.2)
 (cbind(length(noMask), length(mask), length(date)))
+d<- c(time(date), mask, noMask)
 ```
 
 
 ## Q2 
 
 ```{r making graph}
+ggplot(d,aes(x=Date, y=mask))+geom_line()+labs(y="avg cases per 100k population by county", title = "Kansas covid19 7 day rolling average of daily cases/per 100k population")
 
+ggplot(EuStockDF,aes(x=Date))+
+ggplot(EuStockDF,aes(x=Date))+
+  geom_line(aes(y=DAX),color="blue")+
+  geom_line(aes(y=SMI),color="red")+
+  geom_line(aes(y=CAC),color="pink")+
+  geom_line(aes(y=FTSE),color="green") 
 ```
 
 ...
