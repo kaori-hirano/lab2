@@ -1,0 +1,31 @@
+---
+title: "Lab 2"
+author: "A name"
+date: "A date"
+subtitle: "Due: 11:59 PM on 6/15/2023"
+format: pdf
+---
+
+# Part 1
+
+## Q1
+
+```{r chunk_label}
+# Remember to label chunks, it can make debugging code much easier
+# IMPORTANT: CHUNK LABELS MUST BE UNIQUE
+```
+
+
+## Q2 
+
+...
+
+Add exercise headings as needed.
+
+# Part 2
+
+## Q1
+
+...
+
+Add exercise headings as needed.
