@@ -14,29 +14,58 @@ library(lubridate)
 ## Q1
 
 ```{r dataframe construction}
-# the first date was cut off, but I assumed it was 7/12
+
 date <- mdy(c(071220, 71320, 71420, 71520, 71620,71720,71820,71920, 72020,72120,72220,72320,72420,72520,72620,72720,72820, 72920,73020,73120,80120,80220,80320))
-mask <- c(25.5, 19.5, 19.5, 20.5, 19.5, 19.5, 20.5, 20, 20.5, 21.4, 19.5, 19.5, 20.5, 19, 19.4, 17, 16.5, 16.7, 16.7, 16.5, 16.6, 16.5, 16.5)
-noMask <- c(9.9, 9.1, 9.3, 9.9, 9.9, 9.6, 9.6, 9, 8.5, 8.6, 8.5, 9.8, 9.9, 10, 9.8, 9.8, 9.8, 10, 9.6, 9, 9.1, 9, 9.2)
+
+mask <- (c(25.5, 19.5, 19.5, 20.5, 19.5, 19.5, 20.5, 20, 20.5, 21.4, 19.5, 19.5, 20.5, 19, 19.4, 17, 16.5, 16.7, 16.7, 16.5, 16.6, 16.5, 16.5))
+
+noMask <- (c(9.9, 9.1, 9.3, 9.9, 9.9, 9.6, 9.6, 9, 8.5, 8.6, 8.5, 9.8, 9.9, 10, 9.8, 9.8, 9.8, 10, 9.6, 9, 9.1, 9, 9.2))
+
 (cbind(length(noMask), length(mask), length(date)))
-d<- c(time(date), mask, noMask)
+d <- data.frame(time(date), mask, noMask)
+
+dl <- d %>%
+  pivot_longer(
+    cols = c(mask, noMask),
+    names_to = "maskStatus",
+    values_to = "caseNumber"
+  )
+dl
+
+
 ```
 
 
 ## Q2 
 
 ```{r making graph}
-ggplot(d,aes(x=Date, y=mask))+geom_line()+labs(y="avg cases per 100k population by county", title = "Kansas covid19 7 day rolling average of daily cases/per 100k population")
+ggplot(d, 
+       aes(x = date, y = caseNumber, color = maskStatus, group = maskStatus)) +
+  geom_line() +
+  facet_wrap(~ subgroup)
 
-ggplot(EuStockDF,aes(x=Date))+
-ggplot(EuStockDF,aes(x=Date))+
-  geom_line(aes(y=DAX),color="blue")+
-  geom_line(aes(y=SMI),color="red")+
-  geom_line(aes(y=CAC),color="pink")+
-  geom_line(aes(y=FTSE),color="green") 
+ggplot(d, aes(x = date)) + 
+  geom_line(aes(y = mask, color = 'Mask Mandate')) + 
+  geom_line(aes(y = noMask, color = 'No Mask Mandate')) +
+  scale_color_manual(values = c("lightsalmon", "aquamarine2")) + 
+  labs( 
+    x = "Date", y = "Daily Cases/Per 100K Population", 
+    color = NULL, 
+    title = "Kansas COVID 7 Day Rolling Average of Daily Cases/Per 100K Population by Mask vs No Mask Mandate Counties", 
+    caption = "Source: Kansas Department of Health and Environment" 
+  ) 
 ```
 
+## Q3
+In this visual it is more clear that there is a higher incidence of covid cases per 100K people in mask mandate counties than non mask mandate counties from July 11-August 3 2020 in Kansas. 
+
+## Q4
+It doesn't necessarily give us useful information regarding mask wearing and COVID that can be used based on this alone or immediantely, but it gives evidence that mask mandates may not be as effective at preventing the spread of covid as expected given the lower incidence rates of non-mask mandated counties. It invites further research. One thing I would be interested to see included is the incidence rate by county when population and/or population density is included. 
+
+
+
 ...
+
 
 Add exercise headings as needed.
 
