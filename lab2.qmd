@@ -24,15 +24,6 @@ noMask <- (c(9.9, 9.1, 9.3, 9.9, 9.9, 9.6, 9.6, 9, 8.5, 8.6, 8.5, 9.8, 9.9, 10, 
 (cbind(length(noMask), length(mask), length(date)))
 d <- data.frame(time(date), mask, noMask)
 
-dl <- d %>%
-  pivot_longer(
-    cols = c(mask, noMask),
-    names_to = "maskStatus",
-    values_to = "caseNumber"
-  )
-dl
-
-
 ```
 
 
@@ -66,13 +57,68 @@ It doesn't necessarily give us useful information regarding mask wearing and COV
 
 ...
 
-
-Add exercise headings as needed.
-
 # Part 2
 
 ## Q1
+```{r p2q1}
+p <- read.csv('data/paygap.csv') |>
+  janitor::clean_names()        # just for practice
+typeof(p$due_date)
+p <- p |> mutate(year = year(as_datetime(due_date)) - 1)
+p$year
+```
+
+## Q2
+```{r p2q2}
+??count
+(count(p, year)) # need to group by year? not sure what it wants us to do with count
+# NOT DONE
+
+length(p$employer_id) - length(unique(p$employer_id)) # subtracts all employers from dulplicates removed employers list length
+```
+There are 35963 unique companies reporting in the dataset. 
+
+## Q3
+```{r p2q3}
+# Is there any evidence that the pay gap decreased over the time period covered by this
+# data set? Use at least one visualization to answer this question
+```
+
+## Q4
+```{r p2q4}
+#  Does there seem to be a relationship between the size of a company and the pay gap?
+# Use at least one visualization to answer this question and explain how you arrived at
+# your conclusion.
+```
+
+
+
+
 
 ...
 
 Add exercise headings as needed.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
