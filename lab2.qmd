@@ -38,7 +38,7 @@ ggplot(d,
 ggplot(d, aes(x = date)) + 
   geom_line(aes(y = mask, color = 'Mask Mandate')) + 
   geom_line(aes(y = noMask, color = 'No Mask Mandate')) +
-  scale_color_manual(values = c("lightsalmon", "aquamarine2")) + 
+  scale_color_manual(values = c("lightsalmon1", "aquamarine3")) + 
   labs( 
     x = "Date", y = "Daily Cases/Per 100K Population", 
     color = NULL, 
@@ -79,18 +79,51 @@ length(p$employer_id) - length(unique(p$employer_id)) # subtracts all employers 
 There are 35963 unique companies reporting in the dataset. 
 
 ## Q3
-```{r p2q3}
+```{r p2q3 visualizing pay gap}
 # Is there any evidence that the pay gap decreased over the time period covered by this
 # data set? Use at least one visualization to answer this question
+plot <- plot(p$year, p$diff_median_hourly_percent, 
+             xlab = 'Year',
+             ylab = 'Median Hourly Difference In Pay (Percent)',
+             main = 'Gender Pay Gap in the UK by Year')
 ```
+Based on the visualization, there does appear to be a (descriptive) decrease in 
+the overall range of the gap, with more data being clustered toward more equal
+pay (toward 0) in later years, especially 2022. 
 
 ## Q4
 ```{r p2q4}
 #  Does there seem to be a relationship between the size of a company and the pay gap?
 # Use at least one visualization to answer this question and explain how you arrived at
 # your conclusion.
-```
 
+levels(as.factor(p$employer_size))
+p <- p |> 
+  mutate(employer_size = 
+           fct_relevel(employer_size, c('Less than 250', '250 to 499', 
+                                        '500 to 999', '1000 to 4999', 
+                                        '5000 to 19,999', '20,000 or more', 
+                                        'Not Provided'))) 
+# recoding so in order of inc size
+       
+(plot1 <- ggplot(p, aes(x = employer_size, y = diff_median_hourly_percent)) + 
+  geom_boxplot(fill = 'salmon') +
+   labs( 
+    x = "Employer Size", 
+    y = 'Median Hourly Difference In Pay (Percent)',
+    title = 'Gender Pay Gap in the UK by Employer Size'))
+
+(plot2 <- ggplot(p, aes(x = employer_size, y = diff_median_hourly_percent)) +  #plot without outliers
+  geom_boxplot(fill = 'salmon', outlier.shape = NA) +
+  coord_cartesian(ylim=c(quantile(p$diff_median_hourly_percent, prob = .25) - 50, quantile(p$diff_median_hourly_percent, prob = .80) + 50)) + 
+   labs( 
+    x = "Employer Size", 
+    y = 'Median Hourly Difference In Pay (Percent)',
+    title = 'Gender Pay Gap in the UK by Employer Size (no outliers)'))
+```
+Descriptively speaking, there appears to be slightly less of a pay gap in employers
+with a size of 20,000 or more, as seen by the median which is slightly closer to
+zero than the other employer sizes, by around 5%. 
 
 
 
