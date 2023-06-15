@@ -70,12 +70,17 @@ p$year
 
 ## Q2
 ```{r p2q2}
-??count
-(count(p, year)) # need to group by year? not sure what it wants us to do with count
-# NOT DONE
+count(p, vars = year) #, wt_var = NULL) # gets reports per year
 
-length(p$employer_id) - length(unique(p$employer_id)) # subtracts all employers from dulplicates removed employers list length
+length(p$employer_id) - length(unique(p$employer_id)) # subtracts all employers
+# from duplicates removed employers list length
 ```
+There are far more observations in 2017-2021 than in 2022. 2019 also has fewer, 
+by only by around 3000 rather than 9000 responses. This could be because of the year
+of data we are using. After looking at the codebook, it shows that the most
+recent one is 2023-2024. This suggests that the employers listed in 2022 may have 
+reported earlier than the deadline so their numbers for the upcoming year are already listed. 
+
 There are 35963 unique companies reporting in the dataset. 
 
 ## Q3
@@ -93,10 +98,6 @@ pay (toward 0) in later years, especially 2022.
 
 ## Q4
 ```{r p2q4}
-#  Does there seem to be a relationship between the size of a company and the pay gap?
-# Use at least one visualization to answer this question and explain how you arrived at
-# your conclusion.
-
 levels(as.factor(p$employer_size))
 p <- p |> 
   mutate(employer_size = 
@@ -126,11 +127,6 @@ with a size of 20,000 or more, as seen by the median which is slightly closer to
 zero than the other employer sizes, by around 5%. 
 
 
-
-
-...
-
-Add exercise headings as needed.
 
 
 
