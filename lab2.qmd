@@ -30,10 +30,10 @@ d <- data.frame(time(date), mask, noMask)
 ## Q2 
 
 ```{r making graph}
-ggplot(d, 
-       aes(x = date, y = caseNumber, color = maskStatus, group = maskStatus)) +
-  geom_line() +
-  facet_wrap(~ subgroup)
+#ggplot(d, 
+#       aes(x = date, y = caseNumber, color = maskStatus, group = maskStatus)) +
+#  geom_line() +
+#  facet_wrap(~ subgroup)
 
 ggplot(d, aes(x = date)) + 
   geom_line(aes(y = mask, color = 'Mask Mandate')) + 
@@ -48,10 +48,17 @@ ggplot(d, aes(x = date)) +
 ```
 
 ## Q3
-In this visual it is more clear that there is a higher incidence of covid cases per 100K people in mask mandate counties than non mask mandate counties from July 11-August 3 2020 in Kansas. 
+In this visual it is more clear that there is a higher incidence of covid cases 
+per 100K people in mask mandate counties than non mask mandate counties from 
+July 11-August 3 2020 in Kansas. 
 
 ## Q4
-It doesn't necessarily give us useful information regarding mask wearing and COVID that can be used based on this alone or immediantely, but it gives evidence that mask mandates may not be as effective at preventing the spread of covid as expected given the lower incidence rates of non-mask mandated counties. It invites further research. One thing I would be interested to see included is the incidence rate by county when population and/or population density is included. 
+It doesn't necessarily give us useful information regarding mask wearing and 
+COVID that can be used based on this alone or immediantely, but it gives evidence
+that mask mandates may not be as effective at preventing the spread of covid as 
+expected given the lower incidence rates of non-mask mandated counties. It 
+invites further research. One thing I would be interested to see included is the 
+incidence rate by county when total population and/or population density is included. 
 
 
 
@@ -65,7 +72,7 @@ p <- read.csv('data/paygap.csv') |>
   janitor::clean_names()        # just for practice
 typeof(p$due_date)
 p <- p |> mutate(year = year(as_datetime(due_date)) - 1)
-p$year
+# p$year checking it worked
 ```
 
 ## Q2
@@ -85,8 +92,6 @@ There are 35963 unique companies reporting in the dataset.
 
 ## Q3
 ```{r p2q3 visualizing pay gap}
-# Is there any evidence that the pay gap decreased over the time period covered by this
-# data set? Use at least one visualization to answer this question
 plot <- plot(p$year, p$diff_median_hourly_percent, 
              xlab = 'Year',
              ylab = 'Median Hourly Difference In Pay (Percent)',
@@ -94,7 +99,8 @@ plot <- plot(p$year, p$diff_median_hourly_percent,
 ```
 Based on the visualization, there does appear to be a (descriptive) decrease in 
 the overall range of the gap, with more data being clustered toward more equal
-pay (toward 0) in later years, especially 2022. 
+pay (toward 0) in later years, especially 2022. However, there is a reasonable
+chance that this is due to the lack of data, not necessarily a lower gap overall.
 
 ## Q4
 ```{r p2q4}
